@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL") // Set to "file:./dev.db" in .env
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  status      String    @default("TODO") // Validated as TODO | IN_PROGRESS | DONE in DTOs
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+}
