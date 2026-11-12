@@ -4,14 +4,15 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL") // Set to "file:./dev.db" in .env
+  url      = env("DATABASE_URL")
 }
 
 model Task {
   id          String    @id @default(uuid())
   title       String
   description String?
-  status      String    @default("TODO") // Validated as TODO | IN_PROGRESS | DONE in DTOs
+  // One of TODO | IN_PROGRESS | DONE. Validated in the NestJS DTOs via the TaskStatus enum.
+  status      String    @default("TODO")
   dueDate     DateTime?
   createdAt   DateTime  @default(now())
 }
